@@ -7,7 +7,7 @@
             class="aspect-video bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden"
           >
             <img
-              [src]="article.imageUrl"
+              [src]="article.imageUrl?.formats?.large?.url || article.imageUrl?.url || article.imageUrl"
               [alt]="article.title"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
@@ -46,7 +46,7 @@
           </div>
 
           <a
-            [routerLink]="['/new', article.id]"
+            [routerLink]="['/new', article.documentId || article.id]"
             class="w-full flex justify-end items-center text-primary hover:text-primary-600 font-medium text-sm transition-colors duration-200"
           >
             Read More

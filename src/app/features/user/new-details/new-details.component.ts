@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { News, NewsService } from '../news.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-details',
@@ -7,7 +9,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrl: './new-details.component.scss',
 })
 export class NewDetailsComponent implements OnInit, OnDestroy {
-  article: any | null = {
+  article: News | null = {
     id: '1',
     title: 'Revolutionary Airport Technology Transforms Travel Experience',
     summary:
@@ -24,13 +26,22 @@ export class NewDetailsComponent implements OnInit, OnDestroy {
         These technological advances are not just improving efficiency; they're also enhancing sustainability. Smart energy management systems optimize power consumption across airport facilities, while data analytics help airlines improve fuel efficiency through better route planning and load optimization.`,
     imageUrl:
       'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    publishedDate: new Date('2024-01-15'),
+    publishDate: JSON.stringify(new Date('2023-10-01T10:00:00Z')),
     tags: ['aviation', 'technology', 'AI', 'biometrics'],
   };
 
-  constructor() {}
+  constructor(private newsService: NewsService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const id = params['id'];
+      if (id) {
+        this.newsService.getById(id).subscribe((article: any) => {
+          this.article = article.data;
+        });
+      }
+    });
+  }
 
   getFormattedDate(date: Date): string {
     return date.toLocaleDateString('en-US', {

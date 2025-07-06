@@ -21,7 +21,6 @@ export class HttpService {
     private toaster: Toaster
   ) {
     this.usersEndPoint = environment.apiEndpoint;
-    this.usersEndPoint = environment.apiEndpoint;
     // const isProd = environment.production;
     const isProd = environment.production;
     console.log('Is production:', isProd);
@@ -67,12 +66,12 @@ export class HttpService {
 
   sendGetRequest<TRequest, TResponse>(
     url: string,
-    port: number,
+    port?: number,
     version?: 'v1' | 'v2'
   ) {
     const apiUrl = this.inProduction
-      ? `${this.usersEndPoint}/api/${version ? version : 'v1'}/${url}`
-      : `${this.usersEndPoint}:${port}/api/${version ? version : 'v1'}/${url}`;
+      ? `${this.usersEndPoint}/api/${url}`
+      : `${this.usersEndPoint}/api/${url}`;
     return this.restService.request<TRequest, TResponse>({
       method: 'GET',
       url: apiUrl,
@@ -84,13 +83,13 @@ export class HttpService {
   sendPostRequest<TRequest, TResponse>(
     url: string,
     body: any,
-    port: number,
+    port?: number,
     isFormData: boolean = false,
     version?: 'v1' | 'v2'
   ) {
     const apiUrl = this.inProduction
-      ? `${this.usersEndPoint}/api/${version ? version : 'v1'}/${url}`
-      : `${this.usersEndPoint}:${port}/api/${version ? version : 'v1'}/${url}`;
+      ? `${this.usersEndPoint}/api/${url}`
+      : `${this.usersEndPoint}/api/${url}`;
     return this.restService.request<TRequest, TResponse>({
       method: 'POST',
       url: apiUrl,
@@ -104,12 +103,12 @@ export class HttpService {
   sendPutRequest<TRequest, TResponse>(
     url: string,
     body: any,
-    port: number,
+    port?: number,
     version?: 'v1' | 'v2'
   ) {
     const apiUrl = this.inProduction
-      ? `${this.usersEndPoint}/api/${version ? version : 'v1'}/${url}`
-      : `${this.usersEndPoint}:${port}/api/${version ? version : 'v1'}/${url}`;
+      ? `${this.usersEndPoint}/api/${url}`
+      : `${this.usersEndPoint}/api/${url}`;
     return this.restService.request<TRequest, TResponse>({
       method: 'PUT',
       url: apiUrl,
@@ -121,12 +120,12 @@ export class HttpService {
   sendPatchRequest<TRequest, TResponse>(
     url: string,
     body: any,
-    port: number,
+    port?: number,
     version?: 'v1' | 'v2'
   ) {
     const apiUrl = this.inProduction
-      ? `${this.usersEndPoint}/api/${version ? version : 'v1'}/${url}`
-      : `${this.usersEndPoint}:${port}/api/${version ? version : 'v1'}/${url}`;
+      ? `${this.usersEndPoint}/api/${url}`
+      : `${this.usersEndPoint}/api/${url}`;
     return this.restService.request<TRequest, TResponse>({
       method: 'PATCH',
       url: apiUrl,
@@ -137,12 +136,12 @@ export class HttpService {
 
   sendPutRequestWithoutBody<TRequest, TResponse>(
     url: string,
-    port: number,
+    port?: number,
     version?: 'v1' | 'v2'
   ) {
     const apiUrl = this.inProduction
-      ? `${this.usersEndPoint}/api/${version ? version : 'v1'}/${url}`
-      : `${this.usersEndPoint}:${port}/api/${version ? version : 'v1'}/${url}`;
+      ? `${this.usersEndPoint}/api/${url}`
+      : `${this.usersEndPoint}/api/${url}`;
     return this.restService.request<TRequest, TResponse>({
       method: 'PUT',
       url: apiUrl,
@@ -152,12 +151,12 @@ export class HttpService {
 
   sendDeleteRequest<TRequest, TResponse>(
     url: string,
-    port: number,
+    port?: number,
     version?: 'v1' | 'v2'
   ) {
     const apiUrl = this.inProduction
-      ? `${this.usersEndPoint}/api/${version ? version : 'v1'}/${url}`
-      : `${this.usersEndPoint}:${port}/api/${version ? version : 'v1'}/${url}`;
+      ? `${this.usersEndPoint}/api/${url}`
+      : `${this.usersEndPoint}/api/${url}`;
     return this.restService.request<TRequest, TResponse>({
       method: 'DELETE',
       url: apiUrl,
@@ -166,10 +165,10 @@ export class HttpService {
     });
   }
 
-  sendGetImageRequest(url: string, port: number): Observable<any> {
+  sendGetImageRequest(url: string, port?: number): Observable<any> {
     const apiUrl = this.inProduction
       ? `${this.usersEndPoint}/api/v1/${url}`
-      : `${this.usersEndPoint}:${port}/api/v1/${url}`;
+      : `${this.usersEndPoint}/api/v1/${url}`;
     return this.http.get(apiUrl, { responseType: 'blob' }).pipe(
       map((response: Blob) => {
         const imageUrl = URL.createObjectURL(response);
@@ -178,12 +177,12 @@ export class HttpService {
     );
   }
 
-  uploadImage(data: any, port: number) {
+  uploadImage(data: any, port?: number) {
     return this.restService.request({
       method: 'POST',
       url: this.inProduction
         ? `${this.usersEndPoint}/api/v1/media/upload-image`
-        : `${this.usersEndPoint}:${port}/api/v1/media/upload-image`,
+        : `${this.usersEndPoint}/api/v1/media/upload-image`,
       body: data,
       withoutBody: true,
       isFormData: true,

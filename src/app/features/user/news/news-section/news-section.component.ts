@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NewsService } from '../../news.service';
 
 @Component({
   selector: 'app-news-section',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './news-section.component.html',
   styleUrl: './news-section.component.scss',
 })
-export class NewsSectionComponent {
+export class NewsSectionComponent implements OnInit {
   articles: any[] = [
     {
       id: '1',
@@ -126,6 +127,22 @@ export class NewsSectionComponent {
       ],
     },
   ];
+
+  constructor(private newsService: NewsService) {}
+
+  ngOnInit(): void {
+    this.newsService.getAll().subscribe({
+      next: (response) => { 
+        console.log('News articles fetched successfully:', response);
+        
+        this.articles = response.data.map((article) => ({
+          ...article,
+          publishedDate: new Date(article.publishDate),
+        }));
+      }
+    });
+
+  }
 
   getFormattedDate(date: Date): string {
     const now = new Date();

@@ -7,7 +7,7 @@
         class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400"
       >
         <a
-          routerLink="/user"
+          routerLink="/"
           class="hover:text-primary transition-colors duration-200"
           >News</a
         >
@@ -45,7 +45,7 @@
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>{{ getFormattedDate(article.publishedDate) }}</span>
+            <span>{{ article.publishDate | date }}</span>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
       <div class="max-w-5xl mx-auto">
         <div class="aspect-video rounded-lg overflow-hidden shadow-lg">
           <img
-            [src]="article.imageUrl"
+            [src]="article.imageUrl?.formats?.large?.url || article.imageUrl?.url || article.imageUrl"
             [alt]="article.title"
             class="w-full h-full object-cover"
           />
