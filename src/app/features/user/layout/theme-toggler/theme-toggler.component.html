@@ -1,0 +1,14 @@
+<div
+  class="bg-[#2021441A] dark:bg-[#16AFB7] px-2 py-3 rounded-[10px] cursor-pointer hover:border-2 border-[#16afb7]"
+  (click)="toggleTheme()"
+>
+  <span>
+    <img
+      class="w-[30px]"
+      [src]="
+        isDark ? 'assets/images/dark-icon.svg' : 'assets/images/light-icon.svg'
+      "
+      alt="theme-icon"
+    />
+  </span>
+</div>

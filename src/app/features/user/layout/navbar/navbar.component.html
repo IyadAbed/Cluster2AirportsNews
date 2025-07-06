@@ -1,0 +1,53 @@
+<nav
+  class="fixed bg-white dark:bg-gray-900/90 z-[1099] w-full transition-colors duration-300"
+>
+  <div
+    class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#133d3f] to-[#16afb7]"
+  ></div>
+
+  <div class="mx-auto w-full px-2 sm:px-[5vw] py-2">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex flex-1 items-center justify-between lg:gap-5 md:gap-3">
+        <a class="items-center" routerLink="/home">
+          <img
+            class="lg:w-[155px] lg:h-[45px] md:w-[100px] md:h-[30px] w-[100px]"
+            [src]="isDark ? dark_logo : light_log"
+            alt="nav-logo"
+          />
+        </a>
+        <div
+          class="hidden md:flex justify-start items-center 2xl:gap-5 lg:gap-4 gap-2"
+        >
+          <div class="flex justify-start items-start xl:gap-3 lg:gap-2 gap-1">
+            @for (item of linksEN[0].items; track $index) {
+              @if (!item?.href) {
+                <a
+                  [routerLink]="item?.routerLink"
+                  class="rounded-md lg:px-1 px-[2px] py-2 xl:text-[16px] lg:text-[14px] text-[11px] font-[700] text-[#16151C] hover:text-[#122fa1] hover:underline hover:underline-offset-4"
+                >
+                  <span translate>
+                    {{ item.label }}
+                  </span>
+                </a>
+              }
+              @if (item?.href) {
+                <a
+                  [href]="item?.href"
+                  target="_blank"
+                  class="rounded-md lg:px-1 px-[2px] py-2 xl:text-[16px] lg:text-[14px] text-[11px] font-[700] text-[#16151C] hover:text-[#122fa1] hover:underline hover:underline-offset-4"
+                  translate
+                >
+                  <span translate>{{ item.label }}</span></a
+                >
+              }
+            }
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <app-lang-toggler></app-lang-toggler>
+          <app-theme-toggler></app-theme-toggler>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

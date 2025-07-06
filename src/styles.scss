@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-white text-black transition-colors duration-300;
+}
+
+.dark body {
+  @apply bg-[#1a1a1a] text-white;
+}
+
+@layer utilities {
+  .font-en {
+    font-family: "Inter", ui-sans-serif, system-ui;
+  }
+
+  .font-ar {
+    font-family: "Tajawal", ui-sans-serif, system-ui;
+  }
+}
